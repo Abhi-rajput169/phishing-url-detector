@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing URL Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1> Phishing URL Detector</h1>
+        
+        <form method="POST">
+            <input type="url" name="url" 
+                   placeholder="Enter URL to check (e.g., https://example.com)" 
+                   required
+                   pattern="https?://.+">
+            <button type="submit">Analyze URL</button>
+        </form>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if result %}
+        <div class="result {{ result.lower() }}">
+            <h3>Analysis Result:</h3>
+            <p><strong>URL:</strong> {{ url }}</p>
+            <p><strong>Status:</strong> {{ result }}</p>
+            {% if confidence %}
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
